@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Chicago Iron Fitness — Member Portal. Track classes, progress, and membership.">
+  <title>Chicago Iron Fitness — Member Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #34d399;
+      --accent-hover: #2dd4a0;
+      --accent-muted: rgba(52, 211, 153, 0.1);
+      --accent-strong: #059669;
+      --bg-base: #0a0a0a;
+      --bg-surface: #111111;
+      --bg-elevated: #1a1a1a;
+      --bg-overlay: #222222;
+      --text-primary: #f5f5f5;
+      --text-secondary: #999999;
+      --text-muted: #666666;
+      --success: #34d399;
+      --warning: #fbbf24;
+      --error: #f85149;
+      --info: #58a6ff;
+      --border: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(255, 255, 255, 0.12);
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+      --shadow-card: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+      --shadow-elevated: 0 4px 12px rgba(0,0,0,0.4);
+      --shadow-glow: 0 0 40px rgba(52, 211, 153, 0.15);
+      --sidebar-width: 260px;
+      --topbar-height: 64px;
+      --font-heading: 'Space Grotesk', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1.0);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--bg-base); color: var(--text-primary); overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    *:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+    .skip-nav { position: absolute; left: -9999px; top: auto; z-index: 9999; background: var(--accent); color: var(--bg-base); padding: 8px 16px; font-weight: 600; border-radius: var(--radius-sm); }
+    .skip-nav:focus { left: 16px; top: 16px; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+    /* Layout */
+    .app { display: flex; min-height: 100vh; }
+
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      z-index: 50;
+      transition: transform 0.3s var(--ease-standard);
+    }
+    .sidebar-header { padding: 20px 20px 16px; border-bottom: 1px solid var(--border); }
+    .sidebar-logo { font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+    .sidebar-logo-icon { width: 32px; height: 32px; background: var(--accent); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; color: var(--bg-base); }
+    .sidebar-nav { flex: 1; padding: 12px 10px; overflow-y: auto; }
+    .sidebar-section-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: 16px 10px 6px; }
+    .sidebar-link { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: var(--radius-sm); font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); transition: all 0.15s var(--ease-standard); margin-bottom: 2px; }
+    .sidebar-link:hover { background: var(--bg-elevated); color: var(--text-primary); }
+    .sidebar-link.active { background: var(--accent-muted); color: var(--accent); }
+    .sidebar-link-icon { font-size: 1.1rem; width: 22px; text-align: center; flex-shrink: 0; }
+    .sidebar-footer { padding: 12px 10px; border-top: 1px solid var(--border); }
+    .sidebar-user { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: var(--radius-sm); cursor: pointer; transition: background 0.15s; }
+    .sidebar-user:hover { background: var(--bg-elevated); }
+    .sidebar-user-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-strong)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; color: var(--bg-base); flex-shrink: 0; }
+    .sidebar-user-info { overflow: hidden; }
+    .sidebar-user-name { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); }
+    .sidebar-user-role { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* Main */
+    .main-wrapper { flex: 1; margin-left: var(--sidebar-width); min-height: 100vh; display: flex; flex-direction: column; }
+    .topbar { height: var(--topbar-height); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 40; }
+    .topbar-left { display: flex; align-items: center; gap: 16px; }
+    .mobile-menu-btn { display: none; font-size: 1.3rem; color: var(--text-secondary); padding: 4px; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); }
+    .breadcrumb a { color: var(--text-secondary); transition: color 0.15s; }
+    .breadcrumb a:hover { color: var(--text-primary); }
+    .breadcrumb-sep { color: var(--text-muted); }
+    .breadcrumb-current { color: var(--text-primary); font-weight: 600; }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .notif-bell { position: relative; font-size: 1.15rem; color: var(--text-secondary); padding: 6px; border-radius: var(--radius-sm); transition: background 0.15s; }
+    .notif-bell:hover { background: var(--bg-elevated); color: var(--text-primary); }
+    .notif-badge { position: absolute; top: 2px; right: 2px; width: 16px; height: 16px; background: var(--error); border-radius: 50%; font-size: 0.6rem; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+    /* Page content */
+    .page-content { flex: 1; padding: 24px; max-width: 1440px; width: 100%; }
+
+    /* Hero Profile Card */
+    .profile-hero {
+      background: linear-gradient(135deg, var(--bg-surface) 0%, var(--bg-elevated) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .profile-hero::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 300px;
+      height: 100%;
+      background: radial-gradient(ellipse at right, rgba(52, 211, 153, 0.08), transparent 70%);
+      pointer-events: none;
+    }
+    .profile-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700;
+      color: var(--bg-base); flex-shrink: 0; z-index: 1;
+    }
+    .profile-info { flex: 1; z-index: 1; }
+    .profile-name { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+    .profile-member-since { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+    .profile-streak { display: flex; align-items: center; gap: 12px; }
+    .streak-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px; border-radius: 99px;
+      background: rgba(251, 191, 36, 0.1); color: var(--warning);
+      font-size: 0.85rem; font-weight: 600;
+    }
+    .streak-badge-fire { font-size: 1rem; }
+    .streak-info { font-size: 0.75rem; color: var(--text-muted); }
+    .profile-plan-badge {
+      padding: 6px 16px; border-radius: 99px;
+      background: var(--accent-muted); color: var(--accent);
+      font-size: 0.8rem; font-weight: 700;
+      border: 1px solid rgba(52, 211, 153, 0.2);
+    }
+    .profile-actions { display: flex; gap: 10px; z-index: 1; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      font-size: 0.85rem; font-weight: 600;
+      transition: all 0.15s var(--ease-standard);
+    }
+    .btn-primary { background: var(--accent); color: var(--bg-base); }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-ghost { background: var(--bg-elevated); color: var(--text-secondary); border: 1px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--border-hover); color: var(--text-primary); }
+
+    /* Quick stats */
+    .quick-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .quick-stat {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s var(--ease-out-expo);
+    }
+    .quick-stat:hover { border-color: rgba(52, 211, 153, 0.2); transform: translateY(-3px); box-shadow: var(--shadow-card); }
+    .quick-stat-icon { font-size: 1.5rem; margin-bottom: 8px; }
+    .quick-stat-value { font-family: var(--font-heading); font-size: 1.75rem; font-weight: 700; margin-bottom: 4px; }
+    .quick-stat-label { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* Sections */
+    .section { margin-bottom: 24px; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .section-title { font-size: 1.15rem; font-weight: 700; font-family: var(--font-heading); }
+    .section-link { font-size: 0.85rem; color: var(--accent); font-weight: 600; }
+    .section-link:hover { text-decoration: underline; }
+
+    /* Class cards */
+    .class-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .class-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all 0.3s var(--ease-out-expo);
+    }
+    .class-card:hover { border-color: rgba(52, 211, 153, 0.2); transform: translateY(-3px); box-shadow: var(--shadow-card); }
+    .class-card-image {
+      height: 140px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      position: relative;
+    }
+    .class-card-image::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 50%;
+      background: linear-gradient(transparent, var(--bg-surface));
+    }
+    .class-card-body { padding: 16px; }
+    .class-card-day { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 4px; }
+    .class-card-title { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .class-card-trainer { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px; }
+    .class-card-meta { display: flex; align-items: center; gap: 12px; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px; }
+    .class-card-meta span { display: flex; align-items: center; gap: 4px; }
+    .class-card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .spots-left { font-size: 0.75rem; font-weight: 600; color: var(--warning); }
+    .spots-left.available { color: var(--success); }
+    .btn-sm { padding: 6px 14px; font-size: 0.75rem; font-weight: 600; border-radius: var(--radius-sm); }
+    .btn-sm-primary { background: var(--accent); color: var(--bg-base); }
+    .btn-sm-primary:hover { background: var(--accent-hover); }
+    .btn-sm-ghost { background: var(--bg-elevated); color: var(--text-secondary); border: 1px solid var(--border); }
+    .btn-sm-ghost:hover { border-color: var(--border-hover); color: var(--text-primary); }
+
+    /* Progress bars */
+    .progress-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 12px;
+    }
+    .progress-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .progress-label { font-size: 0.9rem; font-weight: 600; }
+    .progress-value { font-size: 0.9rem; font-weight: 700; color: var(--accent); }
+    .progress-bar {
+      height: 8px;
+      background: var(--bg-elevated);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+      transition: width 1.2s var(--ease-out-expo);
+    }
+    .progress-target { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* Membership card */
+    .membership-card {
+      background: linear-gradient(135deg, var(--bg-surface), var(--bg-elevated));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .membership-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .membership-info p { font-size: 0.85rem; color: var(--text-muted); }
+    .membership-plan {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: 99px;
+      background: var(--accent-muted); color: var(--accent);
+      font-size: 0.85rem; font-weight: 700;
+      border: 1px solid rgba(52, 211, 153, 0.2);
+    }
+
+    /* Footer */
+    .dashboard-footer { padding: 16px 24px; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; }
+
+    /* Mobile sidebar overlay */
+    .sidebar-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 49; }
+    .sidebar-backdrop.show { display: block; }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .quick-stats { grid-template-columns: repeat(2, 1fr); }
+      .class-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main-wrapper { margin-left: 0; }
+      .mobile-menu-btn { display: flex; }
+      .quick-stats { grid-template-columns: repeat(2, 1fr); }
+      .class-grid { grid-template-columns: 1fr; }
+      .profile-hero { flex-direction: column; text-align: center; }
+      .profile-streak { flex-wrap: wrap; justify-content: center; }
+      .profile-actions { flex-wrap: wrap; justify-content: center; }
+      .membership-card { flex-direction: column; text-align: center; }
+      .dashboard-footer { flex-direction: column; gap: 8px; text-align: center; }
+    }
+    @media (prefers-contrast: more) {
+      .quick-stat, .class-card, .progress-card, .membership-card { border-width: 2px; }
+    }
+    @media (prefers-reduced-data: reduce) {
+      .profile-hero::after { display: none; }
+    }
+
+    /* Animations */
+    .card-stagger { opacity: 0; transform: translateY(16px); transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo); }
+    .card-stagger.visible { opacity: 1; transform: translateY(0); }
+    .card-stagger:nth-child(1) { transition-delay: 0s; }
+    .card-stagger:nth-child(2) { transition-delay: 0.08s; }
+    .card-stagger:nth-child(3) { transition-delay: 0.16s; }
+    .card-stagger:nth-child(4) { transition-delay: 0.24s; }
+    @media (prefers-reduced-motion: reduce) { .card-stagger { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-nav">Skip to main content</a>
+
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <a href="#" class="sidebar-logo">
+          <span class="sidebar-logo-icon">&#9876;</span>
+          IRON FITNESS
+        </a>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-label">My Account</div>
+        <a href="#" class="sidebar-link active" data-page="portal">
+          <span class="sidebar-link-icon">&#127968;</span> Home
+        </a>
+        <a href="#" class="sidebar-link" data-page="classes">
+          <span class="sidebar-link-icon">&#127912;</span> Classes
+        </a>
+        <a href="#" class="sidebar-link" data-page="progress">
+          <span class="sidebar-link-icon">&#128200;</span> Progress
+        </a>
+        <a href="#" class="sidebar-link" data-page="training">
+          <span class="sidebar-link-icon">&#129309;</span> Training
+        </a>
+        <div class="sidebar-section-label">Account</div>
+        <a href="#" class="sidebar-link" data-page="membership">
+          <span class="sidebar-link-icon">&#128176;</span> Membership
+        </a>
+        <a href="#" class="sidebar-link" data-page="nutrition">
+          <span class="sidebar-link-icon">&#127829;</span> Nutrition
+        </a>
+        <a href="#" class="sidebar-link" data-page="settings">
+          <span class="sidebar-link-icon">&#9881;</span> Settings
+        </a>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="sidebar-user-avatar">MJ</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name">Marcus Johnson</div>
+            <div class="sidebar-user-role">Unlimited Plan</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="toggleSidebar()"></div>
+
+    <!-- Main -->
+    <div class="main-wrapper">
+      <!-- TopBar -->
+      <header class="topbar" role="banner">
+        <div class="topbar-left">
+          <button class="mobile-menu-btn" aria-label="Open menu" onclick="toggleSidebar()">&#9776;</button>
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="#">Chicago Iron</a>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current">My Portal</span>
+          </nav>
+        </div>
+        <div class="topbar-right">
+          <button class="notif-bell" aria-label="2 notifications">
+            &#128276;
+            <span class="notif-badge">2</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main-content" class="page-content">
+        <!-- Hero Profile -->
+        <div class="profile-hero card-stagger">
+          <div class="profile-avatar">MJ</div>
+          <div class="profile-info">
+            <h1 class="profile-name">Welcome back, Marcus!</h1>
+            <p class="profile-member-since">Member since January 2024 &middot; Unlimited Plan</p>
+            <div class="profile-streak">
+              <span class="streak-badge"><span class="streak-badge-fire">&#128293;</span> 12-day streak</span>
+              <span class="streak-info">Keep it going! 5 more days for a bonus week.</span>
+            </div>
+          </div>
+          <div class="profile-actions">
+            <button class="btn btn-primary">&#128197; Book a Class</button>
+            <button class="btn btn-ghost">&#9998; Update Profile</button>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+          <div class="quick-stat card-stagger">
+            <div class="quick-stat-icon">&#128295;</div>
+            <div class="quick-stat-value tabular-nums" data-countup="28">0</div>
+            <div class="quick-stat-label">Workouts This Month</div>
+          </div>
+          <div class="quick-stat card-stagger">
+            <div class="quick-stat-icon">&#9201;</div>
+            <div class="quick-stat-value tabular-nums" data-countup="2450">0</div>
+            <div class="quick-stat-label">Calories Burned</div>
+          </div>
+          <div class="quick-stat card-stagger">
+            <div class="quick-stat-icon">&#128170;</div>
+            <div class="quick-stat-value tabular-nums" data-countup="18">0</div>
+            <div class="quick-stat-label">Hours Trained</div>
+          </div>
+          <div class="quick-stat card-stagger">
+            <div class="quick-stat-icon">&#127942;</div>
+            <div class="quick-stat-value tabular-nums" data-countup="3">0</div>
+            <div class="quick-stat-label">Achievements</div>
+          </div>
+        </div>
+
+        <!-- Upcoming Classes -->
+        <div class="section">
+          <div class="section-header">
+            <h2 class="section-title">Upcoming Classes</h2>
+            <a href="#" class="section-link">View All &rarr;</a>
+          </div>
+          <div class="class-grid">
+            <div class="class-card card-stagger">
+              <div class="class-card-image" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">&#129302;</div>
+              <div class="class-card-body">
+                <div class="class-card-day">Today</div>
+                <div class="class-card-title">HIIT Blast</div>
+                <div class="class-card-trainer">with Coach Diana</div>
+                <div class="class-card-meta">
+                  <span>&#128339; 5:30 PM</span>
+                  <span>&#9201; 45 min</span>
+                  <span>&#128106; 18/22</span>
+                </div>
+                <div class="class-card-footer">
+                  <span class="spots-left available">&#9679; 4 spots left</span>
+                  <button class="btn btn-sm btn-sm-primary">Check In</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="class-card card-stagger">
+              <div class="class-card-image" style="background: linear-gradient(135deg, #1a2e1a, #0f2b1a);">&#129304;</div>
+              <div class="class-card-body">
+                <div class="class-card-day">Tomorrow</div>
+                <div class="class-card-title">Power Lifting 101</div>
+                <div class="class-card-trainer">with Coach Marcus</div>
+                <div class="class-card-meta">
+                  <span>&#128339; 7:00 AM</span>
+                  <span>&#9201; 60 min</span>
+                  <span>&#128106; 8/15</span>
+                </div>
+                <div class="class-card-footer">
+                  <span class="spots-left available">&#9679; 7 spots left</span>
+                  <button class="btn btn-sm btn-sm-ghost">Book</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="class-card card-stagger">
+              <div class="class-card-image" style="background: linear-gradient(135deg, #2e1a2e, #2b0f2b);">&#129336;</div>
+              <div class="class-card-body">
+                <div class="class-card-day">Friday</div>
+                <div class="class-card-title">Yoga & Recovery</div>
+                <div class="class-card-trainer">with Coach Aisha</div>
+                <div class="class-card-meta">
+                  <span>&#128339; 6:00 PM</span>
+                  <span>&#9201; 50 min</span>
+                  <span>&#128106; 5/20</span>
+                </div>
+                <div class="class-card-footer">
+                  <span class="spots-left available">&#9679; 15 spots left</span>
+                  <button class="btn btn-sm btn-sm-ghost">Book</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Toward Goals -->
+        <div class="section">
+          <div class="section-header">
+            <h2 class="section-title">Monthly Goals</h2>
+            <a href="#" class="section-link">Edit Goals &rarr;</a>
+          </div>
+          <div class="progress-card card-stagger">
+            <div class="progress-header">
+              <span class="progress-label">&#128295; Workout Frequency</span>
+              <span class="progress-value tabular-nums">28 / 30</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 0%;" data-width="93%"></div></div>
+            <div class="progress-target">2 more sessions to reach your goal</div>
+          </div>
+          <div class="progress-card card-stagger">
+            <div class="progress-header">
+              <span class="progress-label">&#9201; Calorie Target</span>
+              <span class="progress-value tabular-nums">2,450 / 4,000</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 0%;" data-width="61%"></div></div>
+            <div class="progress-target">1,550 more calories to burn</div>
+          </div>
+          <div class="progress-card card-stagger">
+            <div class="progress-header">
+              <span class="progress-label">&#127942; Achievement: Iron Warrior</span>
+              <span class="progress-value tabular-nums">60 / 100</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width: 0%;" data-width="60%"></div></div>
+            <div class="progress-target">40 more points to unlock the achievement</div>
+          </div>
+        </div>
+
+        <!-- Membership -->
+        <div class="section">
+          <div class="section-header">
+            <h2 class="section-title">Membership</h2>
+          </div>
+          <div class="membership-card card-stagger">
+            <div class="membership-info">
+              <h3>Current Plan: Unlimited</h3>
+              <p>Next payment: $149.00 on September 15, 2026</p>
+            </div>
+            <span class="membership-plan">&#10003; Active</span>
+            <div style="display:flex;gap:10px;">
+              <button class="btn btn-ghost btn-sm">Change Plan</button>
+              <button class="btn btn-ghost btn-sm">View Receipts</button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="dashboard-footer">
+        <span>&copy; 2026 Chicago Iron Fitness. All rights reserved.</span>
+        <span>v1.0.0</span>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    document.documentElement.classList.add('js-ready');
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebar-backdrop').classList.toggle('show');
+    }
+
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        if (window.innerWidth <= 768) toggleSidebar();
+      });
+    });
+
+    function animateCounter(el, target) {
+      const duration = 1200;
+      const start = performance.now();
+      function tick(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(eased * target);
+        el.textContent = current.toLocaleString();
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    document.querySelectorAll('.quick-stat-value[data-countup]').forEach(el => {
+      animateCounter(el, parseInt(el.dataset.countup));
+    });
+
+    // Animate progress bars
+    const progressObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const fill = entry.target.querySelector('.progress-fill');
+          if (fill) { fill.style.width = fill.dataset.width; progressObserver.unobserve(entry.target); }
+        }
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.progress-card').forEach(el => progressObserver.observe(el));
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.card-stagger').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
