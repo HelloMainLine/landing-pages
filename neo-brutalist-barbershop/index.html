@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLIP. — Cut Different.</title>
+<meta name="description" content="CLIP. is the no-bullshit scheduling platform for barbers who cut different. Book online, get paid instantly, grow your book.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Space Mono',monospace;color:#0D0D0D;background:#FFFDF7;line-height:1.6;overflow-x:hidden}
+img,svg{display:block;max-width:100%;height:auto}
+a{color:inherit}
+ul,ol{list-style:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+/* ========== BASE ========== */
+.outline{border:3px solid #0D0D0D}
+.hard-shadow{box-shadow:6px 6px 0px #0D0D0D}
+.hard-shadow-sm{box-shadow:4px 4px 0px #0D0D0D}
+.section{padding:5rem 0}
+@media(max-width:768px){.section{padding:3.5rem 0}}
+
+/* ========== TYPOGRAPHY ========== */
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:700;line-height:1.08;color:#0D0D0D}
+h1{font-size:clamp(3rem,7vw,6rem);letter-spacing:-0.03em;text-transform:uppercase}
+h2{font-size:clamp(2rem,4vw,3.5rem);letter-spacing:-0.02em;text-transform:uppercase}
+h3{font-size:clamp(1.25rem,2vw,1.5rem)}
+p{font-size:0.9375rem;line-height:1.75;color:#0D0D0D}
+.label{font-family:'Space Mono',monospace;font-weight:700;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:#0D0D0D}
+
+/* ========== LAYOUT ========== */
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 2rem}
+
+/* ========== BUTTONS ========== */
+.btn{display:inline-block;font-family:'Space Mono',monospace;font-weight:700;font-size:0.875rem;text-transform:uppercase;letter-spacing:0.06em;padding:1rem 2rem;border:3px solid #0D0D0D;background:#FFE600;color:#0D0D0D;box-shadow:6px 6px 0px #0D0D0D;transition:box-shadow .15s,transform .15s;cursor:pointer;text-align:center}
+.btn:hover{box-shadow:3px 3px 0px #0D0D0D;transform:translate(3px,3px)}
+.btn:active{box-shadow:0 0 0 #0D0D0D;transform:translate(6px,6px)}
+.btn-pink{background:#FF6B9D}
+.btn-cyan{background:#00D4AA}
+.btn-black{background:#0D0D0D;color:#FFFDF7}
+.btn-black:hover{background:#2a2a2a}
+.btn-block{display:block;width:100%}
+
+/* ========== HEADER ========== */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:100;background:#FFFDF7;border-bottom:3px solid #0D0D0D}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.75rem;color:#0D0D0D;text-transform:uppercase;letter-spacing:-0.02em}
+.logo span{color:#FF6B9D}
+.nav{display:flex;align-items:center;gap:2rem}
+.nav a{font-family:'Space Mono',monospace;font-size:0.75rem;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;padding:0.5rem 0;transition:color .2s}
+.nav a:hover{color:#FF6B9D;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.nav .btn{padding:.625rem 1.5rem;font-size:.75rem}
+.mobile-toggle{display:none;flex-direction:column;gap:5px;padding:.5rem}
+.mobile-toggle span{display:block;width:24px;height:3px;background:#0D0D0D}
+@media(max-width:768px){
+  .nav{position:fixed;top:64px;left:0;right:0;bottom:0;background:#FFFDF7;flex-direction:column;justify-content:center;gap:2rem;transform:translateX(100%);transition:transform .35s ease;border-top:3px solid #0D0D0D}
+  .nav.open{transform:translateX(0)}
+  .nav a{text-align:center;font-size:1rem}
+  .mobile-toggle{display:flex}
+}
+
+/* ========== HERO ========== */
+.hero{padding-top:96px;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:4rem 3rem 4rem 3rem;border-right:3px solid #0D0D0D}
+.hero-badge{display:inline-block;font-family:'Space Mono',monospace;font-weight:700;font-size:0.6875rem;text-transform:uppercase;letter-spacing:0.1em;background:#FF6B9D;color:#0D0D0D;padding:0.5rem 1rem;border:3px solid #0D0D0D;box-shadow:4px 4px 0px #0D0D0D;width:fit-content;margin-bottom:2rem;transform:rotate(-2deg)}
+.hero-left h1{margin-bottom:1.5rem;text-transform:uppercase}
+.hero-left h1 .accent{color:#FF6B9D}
+.hero-left p{font-size:0.9375rem;margin-bottom:2.5rem;max-width:440px}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-right{background:#FFE600;display:flex;align-items:center;justify-content:center;padding:3rem;position:relative;overflow:hidden}
+.hero-graphic{width:100%;max-width:380px}
+.hero-box{border:3px solid #0D0D0D;background:#FFFDF7;padding:2rem;box-shadow:8px 8px 0px #0D0D0D;transform:rotate(2deg)}
+.hero-box-header{display:flex;gap:6px;margin-bottom:1.5rem}
+.hero-dot{width:12px;height:12px;border:2px solid #0D0D0D;background:#0D0D0D}
+.hero-dot:nth-child(2){background:#FF6B9D}
+.hero-dot:nth-child(3){background:#00D4AA}
+.hero-line{height:8px;background:#0D0D0D;margin-bottom:0.75rem;opacity:.15}
+.hero-line:nth-child(2){width:85%}
+.hero-line:nth-child(3){width:60%}
+.hero-line:nth-child(4){width:90%}
+.hero-line:nth-child(5){width:45%}
+.hero-box-row{display:flex;gap:0.75rem;margin-top:1.5rem}
+.hero-box-block{flex:1;height:50px;border:2px solid #0D0D0D;background:#0D0D0D;opacity:.1}
+.hero-box-block:nth-child(2){background:#FF6B9D;opacity:.3}
+.hero-sticker{position:absolute;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;text-transform:uppercase;color:#0D0D0D;border:3px solid #0D0D0D;background:#00D4AA;padding:0.5rem 1rem;box-shadow:4px 4px 0px #0D0D0D}
+.hero-sticker.top-right{top:2rem;right:2rem;transform:rotate(6deg)}
+.hero-sticker.bottom-left{bottom:2rem;left:2rem;transform:rotate(-4deg)}
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-left{border-right:none;border-bottom:3px solid #0D0D0D;padding:3rem 2rem;text-align:center}
+  .hero-badge{margin-left:auto;margin-right:auto}
+  .hero-left p{margin-left:auto;margin-right:auto}
+  .hero-actions{justify-content:center}
+  .hero-right{padding:3rem 2rem;min-height:320px}
+  .hero-sticker{display:none}
+}
+
+/* ========== MARQUEE ========== */
+.marquee{border-top:3px solid #0D0D0D;border-bottom:3px solid #0D0D0D;background:#0D0D0D;color:#FFFDF7;overflow:hidden;padding:1rem 0}
+.marquee-inner{display:flex;gap:3rem;animation:marquee 20s linear infinite;width:max-content}
+.marquee-item{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.25rem;text-transform:uppercase;white-space:nowrap;display:flex;align-items:center;gap:1rem}
+.marquee-dot{width:8px;height:8px;background:#FF6B9D;display:inline-block}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ========== SERVICES ========== */
+.services{background:#FFFDF7}
+.section-header{text-align:center;max-width:640px;margin:0 auto 3.5rem}
+.section-header .label{margin-bottom:1rem;display:block}
+.section-header h2{margin-bottom:0.75rem;text-transform:uppercase}
+.section-header p{font-size:0.9375rem}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.service-card{border:3px solid #0D0D0D;padding:2rem;background:#FFFDF7;box-shadow:6px 6px 0px #0D0D0D;transition:box-shadow .2s,transform .2s}
+.service-card:hover{box-shadow:3px 3px 0px #0D0D0D;transform:translate(3px,3px)}
+.service-card:nth-child(2){background:#FFE600}
+.service-card:nth-child(3){background:#E8D5F5}
+.service-card:nth-child(5){background:#00D4AA}
+.service-icon{font-size:2rem;margin-bottom:1rem;display:block}
+.service-card h3{margin-bottom:.75rem;text-transform:uppercase;font-size:1.125rem}
+.service-card p{font-size:0.8125rem;line-height:1.65}
+.service-tag{display:inline-block;font-size:0.625rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;background:#0D0D0D;color:#FFFDF7;padding:0.25rem 0.75rem;margin-top:1rem}
+@media(max-width:768px){.services-grid{grid-template-columns:1fr}}
+
+/* ========== HOW IT WORKS ========== */
+.how-it-works{background:#F5F2EB;border-top:3px solid #0D0D0D;border-bottom:3px solid #0D0D0D}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.step{padding:3rem 2.5rem;border-right:3px solid #0D0D0D;position:relative}
+.step:last-child{border-right:none}
+.step-number{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:4rem;line-height:1;color:#FF6B9D;margin-bottom:1rem}
+.step h3{margin-bottom:.75rem;text-transform:uppercase}
+.step p{font-size:0.8125rem;line-height:1.65}
+.step-badge{position:absolute;top:1rem;right:1rem;font-size:0.625rem;font-weight:700;text-transform:uppercase;background:#FFE600;border:2px solid #0D0D0D;padding:0.25rem 0.625rem;box-shadow:3px 3px 0px #0D0D0D}
+@media(max-width:768px){
+  .steps-grid{grid-template-columns:1fr}
+  .step{border-right:none;border-bottom:3px solid #0D0D0D}
+  .step:last-child{border-bottom:none}
+  .step-badge{position:static;display:inline-block;margin-bottom:1rem}
+}
+
+/* ========== STATS ========== */
+.stats{background:#FFE600;border-top:3px solid #0D0D0D;border-bottom:3px solid #0D0D0D}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;text-align:center}
+.stat-item{padding:2rem 1rem}
+.stat-value{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,4vw,3.5rem);font-weight:700;color:#0D0D0D;line-height:1;margin-bottom:.5rem}
+.stat-label{font-family:'Space Mono',monospace;font-size:0.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#0D0D0D;opacity:.7}
+@media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.stats-grid{grid-template-columns:1fr}}
+
+/* ========== TESTIMONIALS ========== */
+.testimonials{background:#FFFDF7}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.testimonial-card{border:3px solid #0D0D0D;padding:2rem;background:#FFFDF7;box-shadow:6px 6px 0px #0D0D0D}
+.testimonial-card:nth-child(2){background:#FFE600;transform:translateY(-1rem)}
+.testimonial-card:nth-child(3){background:#E8D5F5}
+.testimonial-stars{margin-bottom:1rem;font-size:1rem;letter-spacing:2px}
+.testimonial-card blockquote{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:500;line-height:1.6;color:#0D0D0D;margin-bottom:1.5rem;font-style:normal}
+.testimonial-author{display:flex;align-items:center;gap:0.75rem}
+.testimonial-avatar{width:40px;height:40px;border:3px solid #0D0D0D;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.875rem;background:#FF6B9D;color:#0D0D0D}
+.testimonial-name{font-weight:700;font-size:0.8125rem;color:#0D0D0D}
+.testimonial-role{font-size:0.6875rem;color:#0D0D0D;opacity:.6}
+@media(max-width:768px){
+  .testimonials-grid{grid-template-columns:1fr}
+  .testimonial-card:nth-child(2){transform:none}
+}
+
+/* ========== PRICING ========== */
+.pricing{background:#F5F2EB;border-top:3px solid #0D0D0D}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;align-items:start}
+.pricing-card{border:3px solid #0D0D0D;padding:2.5rem;background:#FFFDF7;box-shadow:6px 6px 0px #0D0D0D}
+.pricing-card.featured{background:#FFE600;transform:translateY(-1rem);box-shadow:8px 8px 0px #0D0D0D}
+.pricing-card.featured::before{content:'BOOK NOW';display:block;font-family:'Space Mono',monospace;font-size:0.625rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;background:#0D0D0D;color:#FFE600;padding:0.5rem 1rem;text-align:center;margin:-2.5rem -2.5rem 1.5rem;border-bottom:3px solid #0D0D0D}
+.pricing-tier{font-family:'Space Mono',monospace;font-size:0.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#0D0D0D;margin-bottom:.5rem}
+.pricing-price{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:700;color:#0D0D0D;line-height:1;margin-bottom:.25rem}
+.pricing-price span{font-size:1.25rem;font-weight:400;color:#0D0D0D;opacity:.5}
+.pricing-desc{font-size:0.8125rem;color:#0D0D0D;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:3px solid #0D0D0B}
+.pricing-features{margin-bottom:2rem}
+.pricing-features li{font-size:0.8125rem;padding:.5rem 0;display:flex;align-items:center;gap:.75rem;color:#0D0D0D}
+.pricing-features li::before{content:'>';font-weight:700;color:#FF6B9D}
+.pricing-card .btn{width:100%;display:block;text-align:center}
+@media(max-width:768px){.pricing-grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}.pricing-card.featured{transform:none}}
+
+/* ========== FAQ ========== */
+.faq{background:#FFFDF7}
+.faq-list{max-width:720px;margin:0 auto}
+.faq-item{border-bottom:3px solid #0D0D0D}
+.faq-question{width:100%;text-align:left;padding:1.5rem 0;display:flex;justify-content:space-between;align-items:center;background:none;font-family:'Space Grotesk',sans-serif;font-size:1.0625rem;font-weight:600;color:#0D0D0D;cursor:pointer;gap:1rem}
+.faq-question:hover{color:#FF6B9D}
+.faq-icon{font-size:1.5rem;font-weight:700;color:#FF6B9D;transition:transform .3s;flex-shrink:0}
+.faq-item.open .faq-icon{transform:rotate(90deg)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-item.open .faq-answer{max-height:400px}
+.faq-answer p{padding:0 0 1.5rem;font-size:0.8125rem;color:#0D0D0D;line-height:1.7}
+
+/* ========== BOTTOM CTA ========== */
+.bottom-cta{background:#0D0D0D;color:#FFFDF7;text-align:center;padding:5rem 0}
+.bottom-cta h2{color:#FFFDF7;margin-bottom:1rem;text-transform:uppercase}
+.bottom-cta p{color:#FFFDF7;opacity:.6;max-width:560px;margin:0 auto 2.5rem;font-size:0.9375rem}
+
+/* ========== FOOTER ========== */
+.site-footer{background:#FFFDF7;border-top:3px solid #0D0D0D;padding:4rem 0 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand .logo{margin-bottom:.5rem}
+.footer-brand p{font-size:0.8125rem;opacity:.6;max-width:300px}
+.footer-col h4{font-family:'Space Mono',monospace;font-size:0.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#0D0D0D;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid #0D0D0D;display:inline-block}
+.footer-col a{display:block;font-size:0.8125rem;color:#0D0D0D;padding:.375rem 0;transition:color .2s}
+.footer-col a:hover{color:#FF6B9D;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px}
+.footer-bottom{border-top:3px solid #0D0D0B;padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-bottom p{font-size:0.6875rem;color:#0D0D0D;opacity:.5}
+.footer-social{display:flex;gap:1.5rem}
+.footer-social a{font-size:0.8125rem;color:#0D0D0D;transition:color .2s}
+.footer-social a:hover{color:#FF6B9D}
+@media(max-width:768px){
+  .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+
+/* ========== GRID PATTERN ========== */
+.grid-pattern{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;opacity:.06;background-image:linear-gradient(#0D0D0D 1px,transparent 1px),linear-gradient(90deg,#0D0D0D 1px,transparent 1px);background-size:40px 40px}
+
+/* ========== REDUCED MOTION ========== */
+@media(prefers-reduced-motion:reduce){
+  .marquee-inner{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#" class="logo">CLIP<span>.</span></a>
+    <nav class="nav" id="nav">
+      <a href="#services">Services</a>
+      <a href="#how">How It Works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#pricing" class="btn btn-pink">Book Free Trial</a>
+    </nav>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Now with AI Scheduling</div>
+    <h1>Cut<br>Different<span class="accent">.</span></h1>
+    <p>The no-bullshit scheduling platform for barbers who refuse to play by the shop rules. Book online. Get paid. Grow your book. No fluff.</p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn btn-black">Start Free Trial</a>
+      <a href="#how" class="btn">See How It Works</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="grid-pattern"></div>
+    <div class="hero-graphic">
+      <div class="hero-box">
+        <div class="hero-box-header">
+          <div class="hero-dot"></div>
+          <div class="hero-dot"></div>
+          <div class="hero-dot"></div>
+        </div>
+        <div class="hero-line"></div>
+        <div class="hero-line"></div>
+        <div class="hero-line"></div>
+        <div class="hero-line"></div>
+        <div class="hero-line"></div>
+        <div class="hero-box-row">
+          <div class="hero-box-block"></div>
+          <div class="hero-box-block"></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-sticker top-right">94% fewer<br>no-shows</div>
+    <div class="hero-sticker bottom-left">Built by<br>barbers</div>
+  </div>
+</section>
+
+<!-- ========== MARQUEE ========== -->
+<div class="marquee">
+  <div class="marquee-inner">
+    <span class="marquee-item"><span class="marquee-dot"></span> NO MORE NO-SHOWS</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> BOOK ONLINE 24/7</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> GET PAID INSTANTLY</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> GROW YOUR BOOK</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> CUT DIFFERENT</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> NO BULLSHIT</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> NO MORE NO-SHOWS</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> BOOK ONLINE 24/7</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> GET PAID INSTANTLY</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> GROW YOUR BOOK</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> CUT DIFFERENT</span>
+    <span class="marquee-item"><span class="marquee-dot"></span> NO BULLSHIT</span>
+  </div>
+</div>
+
+<!-- ========== SERVICES ========== -->
+<section class="services section" id="services">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">What We Do</span>
+      <h2>Services That<br>Actually Help</h2>
+      <p>Every feature exists to save you time or fill your chair. Nothing else.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">📅</span>
+        <h3>Smart Scheduling</h3>
+        <p>AI fills your gap slots. Clients book themselves. You show up and cut. Double-bookings? Gone.</p>
+        <span class="service-tag">Core</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">👤</span>
+        <h3>Client CRM</h3>
+        <p>Know every client's cut style, birthday, and last visit. Build loyalty with zero effort.</p>
+        <span class="service-tag">Core</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">💳</span>
+        <h3>Payments & Deposits</h3>
+        <p>Take deposits to kill no-shows. Process payments in-shop or online. Money hits your account fast.</p>
+        <span class="service-tag">Money</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🔗</span>
+        <h3>Booking Page</h3>
+        <p>A slick mobile-first page you share via link. Clients pick service, time, and pay. Done.</p>
+        <span class="service-tag">Growth</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📊</span>
+        <h3>Revenue Dashboard</h3>
+        <p>Daily earnings, tip reports, retention rates. Know your numbers like you know your clippers.</p>
+        <span class="service-tag">Insights</span>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📱</span>
+        <h3>Staff App</h3>
+        <p>Your team gets a mobile app for their schedules, client notes, and clocking in. All in sync.</p>
+        <span class="service-tag">Team</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== HOW IT WORKS ========== -->
+<section class="how-it-works section" id="how">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">How It Works</span>
+      <h2>Three Steps.<br>Zero BS.</h2>
+      <p>No onboarding call. No IT degree. Just set it up and start booking.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-badge">Step 1</div>
+        <div class="step-number">01</div>
+        <h3>Set Your Schedule</h3>
+        <p>Define hours, service lengths, buffer times. Import clients or start fresh. Takes 5 minutes.</p>
+      </div>
+      <div class="step">
+        <div class="step-badge">Step 2</div>
+        <div class="step-number">02</div>
+        <h3>Share Your Link</h3>
+        <p>Your booking page goes live. Drop it in your Instagram bio, text it to clients, post it everywhere.</p>
+      </div>
+      <div class="step">
+        <div class="step-badge">Step 3</div>
+        <div class="step-number">03</div>
+        <h3>Get Paid, Grow</h3>
+        <p>Deposits kill no-shows. Reviews build rep. Insights make you smarter. Repeat every day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== STATS ========== -->
+<section class="stats section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-value">12k+</div>
+        <div class="stat-label">Active Barbers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">94%</div>
+        <div class="stat-label">Fewer No-Shows</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">$4.2M</div>
+        <div class="stat-label">Monthly Processed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">4.9</div>
+        <div class="stat-label">App Store Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TESTIMONIALS ========== -->
+<section class="testimonials section" id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">What Barbers Say</span>
+      <h2>From Barbers Who<br>Left the Chains</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <blockquote>"I left my shop for a chair rental. CLIP. gave me the tools to run it like a real business. Deposits paid for the sub in week one."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">MR</div>
+          <div>
+            <div class="testimonial-name">Marcus Rivera</div>
+            <div class="testimonial-role">Independent Barber</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <blockquote>"The booking page looks insane on mobile. Clients text me saying 'your site made booking so easy.' Didn't know barbers could have that."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">JT</div>
+          <div>
+            <div class="testimonial-name">James Taylor</div>
+            <div class="testimonial-role">Owner, Taylor's Cut Studio</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <blockquote>"Tried three platforms before CLIP. The others felt like software. This one feels like it was built by someone who actually holds clippers."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">AK</div>
+          <div>
+            <div class="testimonial-name">Aisha Khan</div>
+            <div class="testimonial-role">Master Barber</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PRICING ========== -->
+<section class="pricing section" id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Pricing</span>
+      <h2>Simple Pricing.<br>No Hidden Fees.</h2>
+      <p>Start free. Upgrade when ready. Cancel anytime.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-tier">Solo</div>
+        <div class="pricing-price">$19<span>/mo</span></div>
+        <div class="pricing-desc">For independent barbers who need the essentials.</div>
+        <ul class="pricing-features">
+          <li>Unlimited bookings</li>
+          <li>Custom booking page</li>
+          <li>Client CRM (200 max)</li>
+          <li>Payment processing</li>
+          <li>Automated reminders</li>
+        </ul>
+        <a href="#" class="btn btn-black">Start Free Trial</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-tier">Shop</div>
+        <div class="pricing-price">$49<span>/mo</span></div>
+        <div class="pricing-desc">For shops with a team that need coordination.</div>
+        <ul class="pricing-features">
+          <li>Everything in Solo</li>
+          <li>Up to 10 staff</li>
+          <li>Revenue dashboard</li>
+          <li>Deposits & packages</li>
+          <li>Review management</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#" class="btn btn-cyan">Start Free Trial</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-tier">Enterprise</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-desc">For multi-location chains and brands.</div>
+        <ul class="pricing-features">
+          <li>Everything in Shop</li>
+          <li>Unlimited locations</li>
+          <li>API access</li>
+          <li>Custom branding</li>
+          <li>Dedicated account manager</li>
+          <li>SLA & compliance</li>
+        </ul>
+        <a href="#" class="btn btn-black">Contact Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section class="faq section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">FAQ</span>
+      <h2>Questions?<br>Answered.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Do I need to give up my current booking system?</span>
+          <span class="faq-icon">→</span>
+        </button>
+        <div class="faq-answer">
+          <p>Not overnight. Run CLIP. alongside your current system during transition. Most barbers migrate fully within two weeks because they don't want to go back.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>What happens if a client doesn't show up?</span>
+          <span class="faq-icon">→</span>
+        </button>
+        <div class="faq-answer">
+          <p>With deposits, they've already put skin in the game. No-show rates drop 94% on average. Automated SMS + email reminders reduce them further.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Can I customize my booking page?</span>
+          <span class="faq-icon">→</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. Choose colors, add your logo, write your bio, set your services. Your booking page is yours — no generic template feel.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>How does payment processing work?</span>
+          <span class="faq-icon">→</span>
+        </button>
+        <div class="faq-answer">
+          <p>We partner with Stripe. Connect your account, payments deposit to your bank in 2 business days. Standard Stripe fees apply (2.9% + 30¢).</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Is there a free trial?</span>
+          <span class="faq-icon">→</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes — 14 days free, no credit card. Full access to all features. Pick a plan if you love it (and most do).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BOTTOM CTA ========== -->
+<section class="bottom-cta">
+  <div class="container">
+    <h2>Ready to Cut<br>Different?</h2>
+    <p>Join 12,000+ barbers who took back control of their business. Start free today.</p>
+    <a href="#pricing" class="btn btn-pink" style="font-size:1rem;padding:1.125rem 2.75rem">Start Your Free Trial</a>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">CLIP<span>.</span></div>
+        <p>No-bullshit scheduling for barbers who cut different. Built by barbers, for barbers.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Integrations</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 CLIP. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#">Instagram</a>
+        <a href="#">Twitter</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile nav toggle
+(function(){
+  var toggle=document.getElementById('mobileToggle');
+  var nav=document.getElementById('nav');
+  toggle.addEventListener('click',function(){nav.classList.toggle('open')});
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){nav.classList.remove('open')});
+  });
+})();
+
+// FAQ accordion
+(function(){
+  document.querySelectorAll('.faq-question').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var item=this.parentElement;
+      var wasOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open')});
+      if(!wasOpen)item.classList.add('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>
