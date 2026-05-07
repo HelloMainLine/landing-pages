@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Gilded Razor — Luxury Redefined</title>
+<meta name="description" content="The Gilded Razor is a luxury barbershop where 1920s grandeur meets modern precision. Experience the art of the refined gentleman.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Cormorant',Georgia,serif;color:#F5E6C8;background:#0A0A0A;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+/* ========== TYPOGRAPHY ========== */
+h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;line-height:1.12;color:#F5E6C8}
+h1{font-size:clamp(3rem,7vw,6rem);letter-spacing:0.02em;text-transform:uppercase}
+h2{font-size:clamp(2rem,4vw,3.5rem);letter-spacing:0.015em;text-transform:uppercase}
+h3{font-size:clamp(1.25rem,2vw,1.5rem)}
+p{font-size:1.0625rem;line-height:1.8;color:#D4C4A0}
+.label{font-family:'Cormorant',serif;font-weight:600;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.15em;color:#D4AF37}
+
+/* ========== LAYOUT ========== */
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 2rem}
+.section{padding:6rem 0}
+@media(max-width:768px){.section{padding:4rem 0}}
+
+/* ========== ORNAMENTAL DIVIDERS ========== */
+.divider{display:flex;align-items:center;justify-content:center;gap:1.5rem;padding:2rem 0}
+.divider-line{flex:1;max-width:200px;height:1px;background:linear-gradient(90deg,transparent,#D4AF37,transparent)}
+.divider-diamond{width:12px;height:12px;background:#D4AF37;transform:rotate(45deg)}
+.divider-wide .divider-line{max-width:400px}
+
+/* ========== BUTTONS ========== */
+.btn{display:inline-block;font-family:'Cormorant',serif;font-weight:600;font-size:0.9375rem;text-transform:uppercase;letter-spacing:0.12em;padding:1rem 2.5rem;border:1px solid #D4AF37;color:#D4AF37;background:transparent;transition:background .3s,color .3s,border-color .3s;cursor:pointer}
+.btn:hover{background:#D4AF37;color:#0A0A0A}
+.btn-filled{background:#D4AF37;color:#0A0A0A}
+.btn-filled:hover{background:#F0D060;border-color:#F0D060}
+.btn-gold{background:linear-gradient(135deg,#D4AF37,#F0D060);color:#0A0A0A;border:none;font-weight:700}
+.btn-gold:hover{background:linear-gradient(135deg,#F0D060,#D4AF37)}
+
+/* ========== HEADER ========== */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:100;background:#0A0A0A;border-bottom:1px solid rgba(212,175,55,.2)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.375rem;color:#F5E6C8;letter-spacing:0.05em;text-transform:uppercase}
+.logo span{color:#D4AF37}
+.nav{display:flex;align-items:center;gap:2.5rem}
+.nav a{font-family:'Cormorant',serif;font-weight:600;font-size:0.8125rem;text-transform:uppercase;letter-spacing:0.1em;color:#D4C4A0;transition:color .2s}
+.nav a:hover{color:#D4AF37}
+.nav .btn{padding:.625rem 1.5rem;font-size:.75rem}
+.mobile-toggle{display:none;flex-direction:column;gap:5px;padding:.5rem}
+.mobile-toggle span{display:block;width:24px;height:2px;background:#D4AF37}
+@media(max-width:768px){
+  .nav{position:fixed;top:72px;left:0;right:0;bottom:0;background:#0A0A0A;flex-direction:column;justify-content:center;gap:2rem;transform:translateX(100%);transition:transform .35s ease}
+  .nav.open{transform:translateX(0)}
+  .mobile-toggle{display:flex}
+}
+
+/* ========== HERO ========== */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;background:#0A0A0A;overflow:hidden}
+.hero-bg{position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(45deg,#D4AF37 0,#D4AF37 1px,transparent 1px,transparent 20px),repeating-linear-gradient(-45deg,#D4AF37 0,#D4AF37 1px,transparent 1px,transparent 20px)}
+.hero-content{position:relative;z-index:1;padding:2rem}
+.hero-ornament{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem}
+.hero-ornament-line{width:60px;height:1px;background:linear-gradient(90deg,transparent,#D4AF37)}
+.hero-ornament-diamond{width:8px;height:8px;background:#D4AF37;transform:rotate(45deg)}
+.hero-content .label{margin-bottom:1.5rem;display:block}
+.hero-content h1{margin-bottom:1.5rem}
+.hero-content h1 .gold{color:#D4AF37}
+.hero-content p{font-size:1.1875rem;max-width:560px;margin:0 auto 2.5rem;color:#D4C4A0}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+@media(max-width:768px){
+  .hero-ornament-line{width:40px}
+  .hero-content h1{font-size:clamp(2.5rem,8vw,4rem)}
+}
+
+/* ========== SERVICES ========== */
+.services{background:#0A0A0A}
+.section-header{text-align:center;max-width:640px;margin:0 auto 4rem}
+.section-header .label{margin-bottom:1rem;display:block}
+.section-header h2{margin-bottom:1rem}
+.section-header p{font-size:1.0625rem}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.service-card{border:1px solid rgba(212,175,55,.3);padding:2.5rem;text-align:center;background:rgba(212,175,55,.03);transition:border-color .3s,background .3s}
+.service-card:hover{border-color:#D4AF37;background:rgba(212,175,55,.06)}
+.service-icon{width:64px;height:64px;margin:0 auto 1.5rem;border:1px solid #D4AF37;display:flex;align-items:center;justify-content:center;font-size:1.5rem;transform:rotate(45deg)}
+.service-icon-inner{transform:rotate(-45deg)}
+.service-card h3{margin-bottom:.75rem}
+.service-card p{font-size:.9375rem;line-height:1.65}
+@media(max-width:1024px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.services-grid{grid-template-columns:1fr}}
+
+/* ========== ABOUT ========== */
+.about{background:linear-gradient(180deg,#0A0A0A 0%,#0F1510 50%,#0A0A0A 100%)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-visual{position:relative;display:flex;align-items:center;justify-content:center}
+.about-frame{width:100%;max-width:400px;aspect-ratio:3/4;border:1px solid rgba(212,175,55,.3);display:flex;align-items:center;justify-content:center;background:rgba(212,175,55,.03)}
+.about-frame-inner{border:1px solid rgba(212,175,55,.2);padding:2rem;width:calc(100% - 2rem);height:calc(100% - 2rem);display:flex;align-items:center;justify-content:center}
+.about-frame-text{font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:700;color:#D4AF37;opacity:.3;text-transform:uppercase}
+.about-content .label{margin-bottom:1rem;display:block}
+.about-content h2{margin-bottom:1.5rem}
+.about-content p{margin-bottom:1.5rem}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+.about-feature{display:flex;align-items:center;gap:.75rem}
+.about-feature-icon{width:32px;height:32px;border:1px solid #D4AF37;display:flex;align-items:center;justify-content:center;font-size:.875rem;transform:rotate(45deg);flex-shrink:0}
+.about-feature-icon-inner{transform:rotate(-45deg)}
+.about-feature span{font-size:.9375rem;color:#D4C4A0}
+@media(max-width:768px){
+  .about-grid{grid-template-columns:1fr;text-align:center}
+  .about-visual{order:-1;margin-bottom:2rem}
+  .about-features{justify-content:center}
+}
+
+/* ========== STATS ========== */
+.stats{background:linear-gradient(135deg,#D4AF37 0%,#B8962E 100%);padding:4rem 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.stat-item{padding:1rem}
+.stat-value{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,4vw,3.5rem);font-weight:700;color:#0A0A0A;line-height:1.1;margin-bottom:.5rem}
+.stat-label{font-family:'Cormorant',serif;font-size:.8125rem;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:#0A0A0A;opacity:.7}
+@media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr);gap:2rem}}
+@media(max-width:480px){.stats-grid{grid-template-columns:1fr}}
+
+/* ========== TESTIMONIALS ========== */
+.testimonials{background:#0A0A0A}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.testimonial-card{border:1px solid rgba(212,175,55,.2);padding:2.5rem;background:rgba(212,175,55,.02);position:relative}
+.testimonial-card::before{content:'\201C';font-family:'Cormorant Garamond',serif;font-size:4rem;color:#D4AF37;opacity:.3;line-height:1;position:absolute;top:1rem;left:1.5rem}
+.testimonial-stars{margin-bottom:1.25rem;font-size:1rem;letter-spacing:2px;color:#D4AF37}
+.testimonial-card blockquote{font-family:'Cormorant',serif;font-size:1.0625rem;font-style:italic;line-height:1.7;color:#F5E6C8;margin-bottom:1.5rem;position:relative;z-index:1}
+.testimonial-author{display:flex;align-items:center;gap:1rem}
+.testimonial-avatar{width:44px;height:44px;border:1px solid #D4AF37;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1rem;color:#D4AF37;transform:rotate(45deg)}
+.testimonial-avatar-inner{transform:rotate(-45deg)}
+.testimonial-name{font-weight:600;font-size:.9375rem;color:#F5E6C8}
+.testimonial-role{font-size:.8125rem;color:#D4C4A0}
+@media(max-width:768px){.testimonials-grid{grid-template-columns:1fr}}
+
+/* ========== PRICING ========== */
+.pricing{background:#0A0A0A}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;align-items:start}
+.pricing-card{border:1px solid rgba(212,175,55,.3);padding:2.5rem;text-align:center;background:rgba(212,175,55,.02);position:relative}
+.pricing-card.featured{border-color:#D4AF37;background:rgba(212,175,55,.06)}
+.pricing-card.featured::before{content:'MOST POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-family:'Cormorant',serif;font-size:.625rem;font-weight:600;letter-spacing:0.15em;background:#D4AF37;color:#0A0A0A;padding:4px 1rem}
+.pricing-ornament{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-bottom:1.5rem}
+.pricing-ornament-line{width:40px;height:1px;background:#D4AF37;opacity:.5}
+.pricing-ornament-dot{width:6px;height:6px;background:#D4AF37;transform:rotate(45deg)}
+.pricing-tier{font-family:'Cormorant',serif;font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:0.15em;color:#D4AF37;margin-bottom:.5rem}
+.pricing-price{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;color:#F5E6C8;line-height:1;margin-bottom:.25rem}
+.pricing-price span{font-size:1.25rem;font-weight:400;color:#D4C4A0}
+.pricing-desc{font-size:.9375rem;color:#D4C4A0;margin-bottom:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(212,175,55,.2)}
+.pricing-features{margin-bottom:2rem}
+.pricing-features li{font-size:.9375rem;color:#D4C4A0;padding:.5rem 0;display:flex;align-items:center;justify-content:center;gap:.75rem}
+.pricing-features li::before{content:'\2727';color:#D4AF37;font-size:.75rem}
+.pricing-card .btn{width:100%;display:block;text-align:center}
+@media(max-width:768px){.pricing-grid{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}}
+
+/* ========== FAQ ========== */
+.faq{background:#0A0A0A}
+.faq-list{max-width:720px;margin:0 auto}
+.faq-item{border-bottom:1px solid rgba(212,175,55,.2)}
+.faq-question{width:100%;text-align:left;padding:1.5rem 0;display:flex;justify-content:space-between;align-items:center;background:none;font-family:'Cormorant Garamond',serif;font-size:1.1875rem;font-weight:600;color:#F5E6C8;cursor:pointer;gap:1rem}
+.faq-question:hover{color:#D4AF37}
+.faq-icon{font-size:1.5rem;font-weight:300;color:#D4AF37;transition:transform .3s;flex-shrink:0}
+.faq-item.open .faq-icon{transform:rotate(45deg)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-item.open .faq-answer{max-height:400px}
+.faq-answer p{padding:0 0 1.5rem;font-size:.9375rem;color:#D4C4A0;line-height:1.7}
+@media(max-width:768px){.faq-question{font-size:1.0625rem}}
+
+/* ========== BOTTOM CTA ========== */
+.bottom-cta{background:#0A0A0A;text-align:center;padding:6rem 0;position:relative}
+.bottom-cta-frame{max-width:800px;margin:0 auto;padding:4rem 3rem;border:1px solid rgba(212,175,55,.3);background:rgba(212,175,55,.03);position:relative}
+.bottom-cta-frame::before,.bottom-cta-frame::after{content:'';position:absolute;width:20px;height:20px;border-color:#D4AF37;border-style:solid}
+.bottom-cta-frame::before{top:-1px;left:-1px;border-width:1px 0 0 1px}
+.bottom-cta-frame::after{bottom:-1px;right:-1px;border-width:0 1px 1px 0}
+.bottom-cta .label{margin-bottom:1.5rem;display:block}
+.bottom-cta h2{margin-bottom:1rem;color:#F5E6C8}
+.bottom-cta p{color:#D4C4A0;max-width:560px;margin:0 auto 2.5rem}
+.bottom-cta .btn-gold{font-size:1rem;padding:1.125rem 2.75rem}
+
+/* ========== FOOTER ========== */
+.site-footer{background:#0A0A0A;border-top:1px solid rgba(212,175,55,.2);padding:4rem 0 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand .logo{margin-bottom:.5rem}
+.footer-brand p{font-size:.9375rem;color:#D4C4A0;max-width:300px}
+.footer-col h4{font-family:'Cormorant',serif;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.15em;color:#D4AF37;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(212,175,55,.2);display:inline-block}
+.footer-col a{display:block;font-size:.9375rem;color:#D4C4A0;padding:.375rem 0;transition:color .2s}
+.footer-col a:hover{color:#D4AF37}
+.footer-bottom{border-top:1px solid rgba(212,175,55,.2);padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-bottom p{font-size:.8125rem;color:#D4C4A0;opacity:.5}
+.footer-social{display:flex;gap:1.5rem}
+.footer-social a{font-size:.875rem;color:#D4C4A0;transition:color .2s}
+.footer-social a:hover{color:#D4AF37}
+@media(max-width:768px){
+  .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+  .footer-bottom{flex-direction:column;text-align:center}
+}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
+
+/* ========== SUNBURST DIVIDER ========== */
+.sunburst{display:flex;align-items:center;justify-content:center;padding:3rem 0}
+.sunburst-line{width:120px;height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.4))}
+.sunburst-line:first-child{background:linear-gradient(90deg,rgba(212,175,55,.4),transparent)}
+.sunburst-center{width:16px;height:16px;background:#D4AF37;transform:rotate(45deg);margin:0 1rem}
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#" class="logo">The Gilded<span>Razor</span></a>
+    <nav class="nav" id="nav">
+      <a href="#services">Services</a>
+      <a href="#about">Heritage</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#pricing" class="btn">Reserve Now</a>
+    </nav>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-ornament">
+      <div class="hero-ornament-line"></div>
+      <div class="hero-ornament-diamond"></div>
+      <div class="hero-ornament-line"></div>
+    </div>
+    <span class="label">Est. 2024 — Luxury Barbershop</span>
+    <h1>Where <span class="gold">Luxury</span><br>Meets Craft</h1>
+    <p>A sanctuary of refined grooming where 1920s grandeur meets modern precision. Every visit is a ritual.</p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn btn-gold">Reserve Your Chair</a>
+      <a href="#services" class="btn">Explore Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DIVIDER ========== -->
+<div class="divider divider-wide">
+  <div class="divider-line"></div>
+  <div class="divider-diamond"></div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- ========== SERVICES ========== -->
+<section class="services section" id="services">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Our Services</span>
+      <h2>The Art of the<br>Refined Gentleman</h2>
+      <p>Each service is a ritual — performed with precision, finished with elegance.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon"><span class="service-icon-inner">✂</span></div>
+        <h3>The Signature Cut</h3>
+        <p>Consultation, precision cut, hot towel finish. The complete experience for the discerning gentleman.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><span class="service-icon-inner">&#9733;</span></div>
+        <h3>Royal Shave</h3>
+        <p>Hot towel prep, straight razor glide, essential oil massage. A shave that transcends the ordinary.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><span class="service-icon-inner">◆</span></div>
+        <h3>Beard Sculpting</h3>
+        <p>Precision shaping, conditioning treatment, and styling. Your beard, perfected.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><span class="service-icon-inner">&#9829;</span></div>
+        <h3>Facial Revival</h3>
+        <p>Deep cleansing mask, steam therapy, and massage. Rejuvenate your complexion.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><span class="service-icon-inner">&#9876;</span></div>
+        <h3>The Crown Jewel</h3>
+        <p>Our signature package — cut, shave, facial, and scalp massage. The ultimate indulgence.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><span class="service-icon-inner">&#9734;</span></div>
+        <h3>Color &amp; Style</h3>
+        <p>Artisan color application and contemporary styling. Express yourself with precision.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SUNBURST ========== -->
+<div class="sunburst">
+  <div class="sunburst-line"></div>
+  <div class="sunburst-center"></div>
+  <div class="sunburst-line"></div>
+</div>
+
+<!-- ========== ABOUT ========== -->
+<section class="about section" id="about">
+  <div class="container about-grid">
+    <div class="about-visual">
+      <div class="about-frame">
+        <div class="about-frame-inner">
+          <div class="about-frame-text">GR</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-content">
+      <span class="label">Our Heritage</span>
+      <h2>Built on Tradition.<br>Refined by Craft.</h2>
+      <p>The Gilded Razor was founded on a simple belief: that the barbershop experience should be an occasion — not a chore. Inspired by the grand salons of 1920s Paris and London, we've created a space where every detail serves the ritual.</p>
+      <p>Our barbers are artisans. Every cut, every shave, every service is performed with the precision and care of a master craftsman.</p>
+      <div class="about-features">
+        <div class="about-feature">
+          <div class="about-feature-icon"><span class="about-feature-icon-inner">&#9733;</span></div>
+          <span>Master Barbers</span>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-icon"><span class="about-feature-icon-inner">◆</span></div>
+          <span>Premium Products</span>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-icon"><span class="about-feature-icon-inner">✂</span></div>
+          <span>Private Chairs</span>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-icon"><span class="about-feature-icon-inner">&#9876;</span></div>
+          <span>Complimentary Drinks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== STATS ========== -->
+<section class="stats section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-value">15k+</div>
+        <div class="stat-label">Gentlemen Served</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">98%</div>
+        <div class="stat-label">Return Rate</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">12</div>
+        <div class="stat-label">Master Barbers</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">4.9</div>
+        <div class="stat-label">Star Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== DIVIDER ========== -->
+<div class="divider divider-wide">
+  <div class="divider-line"></div>
+  <div class="divider-diamond"></div>
+  <div class="divider-line"></div>
+</div>
+
+<!-- ========== TESTIMONIALS ========== -->
+<section class="testimonials section" id="testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Testimonials</span>
+      <h2>Words from<br>the Distinguished</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"The Gilded Razor isn't a barbershop. It's an experience. From the moment you walk in, you understand: this is different."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><span class="testimonial-avatar-inner">WR</span></div>
+          <div>
+            <div class="testimonial-name">William Ross</div>
+            <div class="testimonial-role">CEO, Ross & Partners</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"I've been to barbershops across three continents. None compare to the attention to detail and genuine craftsmanship here."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><span class="testimonial-avatar-inner">JM</span></div>
+          <div>
+            <div class="testimonial-name">James Mitchell</div>
+            <div class="testimonial-role">Creative Director</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"The Royal Shave is worth every penny. It's not just a shave — it's a ritual that starts your week right."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar"><span class="testimonial-avatar-inner">DK</span></div>
+          <div>
+            <div class="testimonial-name">David Kim</div>
+            <div class="testimonial-role">Architect</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PRICING ========== -->
+<section class="pricing section" id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Pricing</span>
+      <h2>Invest in<br>Yourself</h2>
+      <p>Every service is an investment in your presentation and your confidence.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-ornament">
+          <div class="pricing-ornament-line"></div>
+          <div class="pricing-ornament-dot"></div>
+          <div class="pricing-ornament-line"></div>
+        </div>
+        <div class="pricing-tier">Essential</div>
+        <div class="pricing-price">$45<span></span></div>
+        <div class="pricing-desc">The Signature Cut — consultation, precision cut, hot towel finish.</div>
+        <ul class="pricing-features">
+          <li>Personal consultation</li>
+          <li>Precision haircut</li>
+          <li>Hot towel treatment</li>
+          <li>Styling included</li>
+        </ul>
+        <a href="#" class="btn">Reserve</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-ornament">
+          <div class="pricing-ornament-line"></div>
+          <div class="pricing-ornament-dot"></div>
+          <div class="pricing-ornament-line"></div>
+        </div>
+        <div class="pricing-tier">Distinguished</div>
+        <div class="pricing-price">$85<span></span></div>
+        <div class="pricing-desc">The Crown Jewel — cut, shave, facial, and scalp massage.</div>
+        <ul class="pricing-features">
+          <li>Everything in Essential</li>
+          <li>Royal straight razor shave</li>
+          <li>Facial revival treatment</li>
+          <li>Scalp &amp; shoulder massage</li>
+          <li>Complimentary beverage</li>
+        </ul>
+        <a href="#" class="btn btn-gold">Reserve</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-ornament">
+          <div class="pricing-ornament-line"></div>
+          <div class="pricing-ornament-dot"></div>
+          <div class="pricing-ornament-line"></div>
+        </div>
+        <div class="pricing-tier">Bespoke</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-desc">Private chair membership — unlimited visits, priority booking, exclusive access.</div>
+        <ul class="pricing-features">
+          <li>Everything in Distinguished</li>
+          <li>Priority scheduling</li>
+          <li>Dedicated barber</li>
+          <li>Exclusive product line</li>
+          <li>Members-only events</li>
+        </ul>
+        <a href="#" class="btn">Inquire</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SUNBURST ========== -->
+<div class="sunburst">
+  <div class="sunburst-line"></div>
+  <div class="sunburst-center"></div>
+  <div class="sunburst-line"></div>
+</div>
+
+<!-- ========== FAQ ========== -->
+<section class="faq section" id="faq">
+  <div class="container">
+    <div class="section-header">
+      <span class="label">Questions</span>
+      <h2>Inquiries<br>Answered</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>How far in advance should I book?</span>
+          <span class="faq-icon">&#10013;</span>
+        </button>
+        <div class="faq-answer">
+          <p>We recommend booking at least one week ahead for weekend appointments. Weekday evenings are more flexible. Online reservations are instant and confirmed immediately.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>What is your cancellation policy?</span>
+          <span class="faq-icon">&#10013;</span>
+        </button>
+        <div class="faq-answer">
+          <p>We understand plans change. Please cancel or reschedule at least 24 hours before your appointment. Late cancellations may incur a fee.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Do you carry premium grooming products?</span>
+          <span class="faq-icon">&#10013;</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. We curate and sell only the finest grooming products — from artisanal pomades to luxury beard oils. Members receive exclusive access to our private collection.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Is there a dress code?</span>
+          <span class="faq-icon">&#10013;</span>
+        </button>
+        <div class="faq-answer">
+          <p>Comfort is our only requirement. However, we do encourage our guests to come prepared for the experience — the Gilded Razor is as much about the ritual as the result.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>How does the Bespoke membership work?</span>
+          <span class="faq-icon">&#10013;</span>
+        </button>
+        <div class="faq-answer">
+          <p>Our Bespoke membership offers unlimited visits, a dedicated barber, priority scheduling, and exclusive access to our private collection. Contact us for pricing and availability.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== BOTTOM CTA ========== -->
+<section class="bottom-cta">
+  <div class="container">
+    <div class="bottom-cta-frame">
+      <span class="label">Begin Your Experience</span>
+      <h2>Reserve Your<br>Chair Today</h2>
+      <p>Join the distinguished. Experience the ritual. Every visit at The Gilded Razor is an occasion.</p>
+      <a href="#pricing" class="btn btn-gold">Reserve Your Chair</a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">The Gilded<span>Razor</span></div>
+        <p>A sanctuary of refined grooming where 1920s grandeur meets modern precision.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#">Signature Cut</a>
+        <a href="#">Royal Shave</a>
+        <a href="#">Beard Sculpting</a>
+        <a href="#">Facial Revival</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">Our Heritage</a>
+        <a href="#">Our Barbers</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="#">Reservations</a>
+        <a href="#">Bespoke Membership</a>
+        <a href="#">Gift Cards</a>
+        <a href="#">Private Events</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 The Gilded Razor. All rights reserved.</p>
+      <div class="footer-social">
+        <a href="#">Instagram</a>
+        <a href="#">Twitter</a>
+        <a href="#">Facebook</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile nav toggle
+(function(){
+  var toggle=document.getElementById('mobileToggle');
+  var nav=document.getElementById('nav');
+  toggle.addEventListener('click',function(){nav.classList.toggle('open')});
+  nav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){nav.classList.remove('open')});
+  });
+})();
+
+// FAQ accordion
+(function(){
+  document.querySelectorAll('.faq-question').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var item=this.parentElement;
+      var wasOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open')});
+      if(!wasOpen)item.classList.add('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>
