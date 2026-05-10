@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mainline Barber Co. — Premium Cuts & Shaves in Chicago</title>
+<meta name="description" content="Mainline Barber Co. offers premium haircuts, beard trims, and hot towel shaves in Chicago. Walk in or book your appointment today.">
+<meta property="og:title" content="Mainline Barber Co. — Premium Cuts & Shaves">
+<meta property="og:description" content="Premium barbershop in Chicago. Walk in or book your appointment today.">
+<meta property="og:type" content="website">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" as="style">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Mainline Barber Co.",
+  "image": "",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "123 Main Street",
+    "addressLocality": "Chicago",
+    "addressRegion": "IL",
+    "postalCode": "60601"
+  },
+  "telephone": "(312) 555-0142",
+  "openingHours": ["Mo-Fr 09:00-19:00", "Sa 09:00-17:00", "Su Closed"],
+  "priceRange": "$$"
+}
+</script>
+<style>
+:root {
+  --bg-page: #0a0a0a;
+  --bg-surface: #1a1a1a;
+  --bg-card: #161616;
+  --gold: #c8a45a;
+  --gold-hover: #d4b06a;
+  --gold-dim: #a8883c;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a0a0a0;
+  --text-muted: #666;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --border-subtle: #222;
+  --section-pad: 100px 24px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Skip nav */
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 10000;
+  padding: 12px 24px;
+  background: var(--gold);
+  color: var(--bg-page);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  transition: top .2s;
+}
+.skip-nav:focus { top: 0; outline: none; }
+
+/* Navigation */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: all .3s ease;
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold);
+  text-decoration: none;
+  letter-spacing: 3px;
+  transition: font-size .3s ease;
+}
+.nav-logo.shrink { font-size: 16px; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color .2s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform .3s ease;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-cta {
+  background: var(--gold);
+  color: var(--bg-page) !important;
+  padding: 8px 20px;
+  font-weight: 700 !important;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px !important;
+  transition: background .2s;
+}
+.nav-cta:hover { background: var(--gold-hover) !important; }
+.nav-cta::after { display: none !important; }
+
+/* Hamburger */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); transition: all .3s ease; }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* Mobile overlay */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: var(--bg-page);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+.mobile-overlay.active { display: flex; }
+.mobile-overlay a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 24px;
+  font-family: var(--font-heading);
+  letter-spacing: 2px;
+}
+.mobile-overlay a:hover { color: var(--gold); }
+
+/* Sections base */
+section { padding: var(--section-pad); }
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+.gold-divider {
+  width: 60px; height: 2px;
+  background: var(--gold);
+  margin: 0 auto 48px;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(200,164,90,0.12), transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(200,164,90,0.06), transparent 55%);
+}
+.hero-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%%25' height='100%%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero-content { position: relative; z-index: 1; max-width: 800px; }
+.hero-ornament {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--gold); font-weight: 600; margin-bottom: 32px;
+}
+.hero-ornament span { display: inline-block; width: 40px; height: 1px; background: var(--gold); }
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(40px, 8vw, 80px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+}
+.hero-tagline {
+  font-size: clamp(14px, 2vw, 20px);
+  color: var(--gold);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+.hero-cta {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--bg-page);
+  padding: 18px 48px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-decoration: none;
+  border: 2px solid var(--gold);
+  transition: all .3s ease;
+}
+.hero-cta:hover {
+  background: transparent;
+  color: var(--gold);
+}
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* Services */
+.services { background: var(--bg-surface); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: #222;
+  max-width: 1000px;
+  margin: 0 auto;
+  border: 1px solid #222;
+}
+.service-card {
+  background: var(--bg-page);
+  padding: 40px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: all .3s ease;
+  position: relative;
+}
+.service-card:hover {
+  background: #111;
+}
+.service-card:hover .service-icon { color: var(--gold); }
+.service-icon {
+  width: 40px; height: 40px;
+  color: var(--text-muted);
+  transition: color .3s ease;
+  margin-bottom: 4px;
+}
+.service-card h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 1px;
+}
+.service-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 220px;
+}
+.service-price {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--gold);
+  margin-top: 4px;
+}
+.service-rating {
+  font-size: 12px;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+/* About */
+.about {
+  background: var(--bg-page);
+}
+.about-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.about-text p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.about-text strong { color: var(--text-primary); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.gallery-item {
+  aspect-ratio: 4/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all .3s ease;
+}
+.gallery-item:hover {
+  filter: brightness(1.15);
+}
+
+/* Booking */
+.booking {
+  background: var(--bg-surface);
+  text-align: center;
+}
+.booking-sub {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.booking-cta {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--bg-page);
+  padding: 16px 44px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-decoration: none;
+  border: 2px solid var(--gold);
+  transition: all .3s ease;
+  margin-bottom: 48px;
+}
+.booking-cta:hover {
+  background: transparent;
+  color: var(--gold);
+}
+.hours-card {
+  display: inline-block;
+  background: var(--bg-page);
+  border: 1px solid #222;
+  padding: 32px 48px;
+  text-align: left;
+  min-width: 300px;
+}
+.hours-card h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--gold);
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 6px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.hours-row .day { color: var(--text-primary); font-weight: 500; }
+.hours-row.closed .time { color: var(--text-muted); }
+
+/* Booking Form */
+.booking-form {
+  max-width: 500px;
+  margin: 0 auto 48px;
+  text-align: left;
+}
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg-page);
+  border: 1px solid #333;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  border-radius: 0;
+  transition: border-color .2s;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--gold);
+  color: var(--bg-page);
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: background .2s;
+  border-radius: 0;
+}
+.form-submit:hover { background: var(--gold-hover); }
+
+/* FAQ */
+.faq { background: var(--bg-page); }
+.faq-list {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border-subtle);
+}
+.faq-question {
+  width: 100%;
+  padding: 20px 0;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.faq-question::after {
+  content: '+';
+  font-size: 20px;
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: transform .3s ease;
+}
+.faq-item.active .faq-question::after {
+  content: '−';
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .3s ease, padding .3s ease;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+.faq-item.active .faq-answer {
+  max-height: 200px;
+  padding-bottom: 20px;
+}
+
+/* Footer */
+.footer {
+  background: var(--bg-page);
+  text-align: center;
+  padding: 60px 24px 40px;
+  border-top: 1px solid var(--gold);
+}
+.footer-brand {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+}
+.footer-address {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+.footer-phone {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+.footer-socials {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.footer-socials a {
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color .2s;
+}
+.footer-socials a:hover { color: var(--text-primary); }
+.footer-copy {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.footer-top {
+  display: inline-block;
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: color .2s;
+}
+.footer-top:hover { color: var(--text-primary); }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-inner { grid-template-columns: 1fr; gap: 32px; }
+  .booking-form { padding: 0; }
+  section { padding: 60px 20px; }
+  .hours-card { min-width: auto; width: 100%; padding: 24px; }
+}
+
+@media (max-width: 480px) {
+  .services-grid { grid-template-columns: 1fr; gap: 1px; }
+  .gallery-grid { grid-template-columns: 1fr; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hero-glow, .hero-noise { display: none; }
+  .scroll-indicator { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Skip nav -->
+<a href="#services" class="skip-nav">Skip to main content</a>
+
+<!-- Mobile overlay -->
+<div class="mobile-overlay" id="mobileOverlay" role="dialog" aria-modal="true" aria-label="Navigation">
+  <a href="#services" onclick="closeMobileNav()">Services</a>
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#gallery" onclick="closeMobileNav()">Gallery</a>
+  <a href="#booking" onclick="closeMobileNav()">Booking</a>
+  <a href="#booking" onclick="closeMobileNav()" style="color:var(--gold);font-weight:700">Book Now</a>
+</div>
+
+<!-- Navigation -->
+<nav class="nav" aria-label="Main navigation" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" id="navLogo">MAINLINE BARBER CO.</a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#booking">Booking</a>
+      <a href="#booking" class="nav-cta">Book Now</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero" id="top">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-noise" aria-hidden="true"></div>
+  <div class="hero-content">
+    <div class="hero-ornament">
+      <span></span> Est. · Chicago <span></span>
+    </div>
+    <h1>MAINLINE<br>BARBER CO.</h1>
+    <p class="hero-tagline">Premium · Cuts · Shaves</p>
+    <a href="#booking" class="hero-cta">Book Appointment</a>
+  </div>
+  <div class="scroll-indicator" aria-hidden="true">Scroll &#8595;</div>
+</header>
+
+<!-- Services -->
+<section id="services" class="services">
+  <h2 class="section-title">Our Services</h2>
+  <div class="gold-divider"></div>
+  <div class="services-grid">
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 2L4 22"/><path d="M17 11l-5 5"/><path d="M9 19l-3 3"/><path d="M21 15l-2 2"/></svg>
+      <h3>Haircuts</h3>
+      <p class="service-desc">Classic and modern cuts for all hair types. Precision styling with expert attention to detail.</p>
+      <span class="service-price">$5</span>
+      <span class="service-rating">★★★★★ (5)</span>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7l10 10"/><path d="M12 5l1-1"/><path d="M5 12l-1 1"/></svg>
+      <h3>Beard Trims</h3>
+      <p class="service-desc">Expert beard shaping and trimming. Clean lines and defined edges for a polished look.</p>
+      <span class="service-price">$5</span>
+      <span class="service-rating">★★★★★ (5)</span>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M8 6h8"/><path d="M6 12h12"/><path d="M5 18l14-4"/><path d="M4 22l16-6"/></svg>
+      <h3>Hot Towel Shaves</h3>
+      <p class="service-desc">Traditional hot towel shave with straight razor. A luxurious, relaxing grooming experience.</p>
+      <span class="service-price">$5</span>
+      <span class="service-rating">★★★★★ (5)</span>
+    </div>
+    <div class="service-card">
+      <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16 14 18 21 12 17 6 21 8 14 2 9 9 9 12 2"/></svg>
+      <h3>Hair Styling</h3>
+      <p class="service-desc">Professional hair styling for special occasions. Look your best for any event.</p>
+      <span class="service-price">$0</span>
+      <span class="service-rating">☆☆☆☆☆ (0)</span>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about" class="about">
+  <h2 class="section-title">About Us</h2>
+  <div class="gold-divider"></div>
+  <div class="about-inner">
+    <div class="about-text">
+      <p><strong>For years, Mainline Barber Co.</strong> has been a cornerstone of the Chicago community. Our master barbers bring decades of combined experience to every cut, trim, and shave. We believe in the art of grooming — taking the time to understand your style, your hair, and your vision.</p>
+      <p>Step into our space and experience the tradition of men's grooming done right. No rush, no shortcuts — just expert craftsmanship and a warm welcome.</p>
+    </div>
+    <div class="gallery-grid" id="gallery">
+      <div class="gallery-item" style="background:#222" aria-label="Interior reception area" role="img">
+        <span>Interior — Reception</span>
+      </div>
+      <div class="gallery-item" style="background:#1e1e1e" aria-label="Master barber at work" role="img">
+        <span>Master Barber at Work</span>
+      </div>
+      <div class="gallery-item" style="background:#202020" aria-label="Classic shave setup" role="img">
+        <span>Classic Shave Setup</span>
+      </div>
+      <div class="gallery-item" style="background:#242424" aria-label="The Mainline space interior" role="img">
+        <span>The Mainline Space</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <h2 class="section-title">FAQ</h2>
+  <div class="gold-divider"></div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">Do I need an appointment?</button>
+      <div class="faq-answer">Walk-ins are always welcome, but we recommend booking in advance to guarantee your preferred time slot, especially on weekends.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">What payment methods do you accept?</button>
+      <div class="faq-answer">We accept cash, all major credit cards, Apple Pay, and Google Pay. Gratuities are appreciated and can be added to card payments.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">How long does a haircut take?</button>
+      <div class="faq-answer">A standard haircut takes approximately 30 minutes. Beard trims add about 15 minutes, and a full hot towel shave service takes 45–60 minutes.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">Do you offer any products for home use?</button>
+      <div class="faq-answer">Yes! We carry a curated selection of pomades, beard oils, balms, and shampoos. Ask your barber for recommendations tailored to your hair type.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggleFaq(this)">Is parking available nearby?</button>
+      <div class="faq-answer">Street parking is available along Main Street and the surrounding blocks. There's also a public parking garage one block north on State Street.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Booking -->
+<section id="booking" class="booking">
+  <h2 class="section-title">Book Your Visit</h2>
+  <div class="gold-divider"></div>
+  <p class="booking-sub">Ready for a fresh look? Walk in or book your appointment today.</p>
+  <form class="booking-form" onsubmit="event.preventDefault();alert('Booking submitted! We\'ll confirm your appointment shortly.');">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required placeholder="Your full name">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required placeholder="your@email.com">
+    </div>
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone" required placeholder="(312) 555-0142">
+    </div>
+    <div class="form-group">
+      <label for="message">Message / Service Request</label>
+      <textarea id="message" name="message" placeholder="Tell us what service you're looking for..."></textarea>
+    </div>
+    <button type="submit" class="form-submit">Request Appointment</button>
+  </form>
+  <div class="hours-card">
+    <h3>Hours of Operation</h3>
+    <div class="hours-row"><span class="day">Monday – Friday</span><span class="time">9:00 AM – 7:00 PM</span></div>
+    <div class="hours-row"><span class="day">Saturday</span><span class="time">9:00 AM – 5:00 PM</span></div>
+    <div class="hours-row closed"><span class="day">Sunday</span><span class="time">Closed</span></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-brand">MAINLINE BARBER CO.</div>
+  <p class="footer-address">123 Main Street, Chicago, IL 60601</p>
+  <p class="footer-phone">(312) 555-0142</p>
+  <div class="footer-socials">
+    <a href="#" aria-label="Instagram" target="_blank" rel="noopener">Instagram</a>
+    <a href="#" aria-label="Facebook" target="_blank" rel="noopener">Facebook</a>
+    <a href="#" aria-label="Yelp" target="_blank" rel="noopener">Yelp</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 Mainline Barber Co. All rights reserved.</p>
+  <a href="#top" class="footer-top">&uarr; Scroll to Top</a>
+</footer>
+
+<script>
+// Mobile nav toggle
+function toggleMobileNav() {
+  const overlay = document.getElementById('mobileOverlay');
+  const hamburger = document.getElementById('hamburger');
+  overlay.classList.toggle('active');
+  hamburger.classList.toggle('active');
+  document.body.style.overflow = overlay.classList.contains('active') ? 'hidden' : '';
+}
+function closeMobileNav() {
+  document.getElementById('mobileOverlay').classList.remove('active');
+  document.getElementById('hamburger').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Nav shrink on scroll
+const navLogo = document.getElementById('navLogo');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) {
+    navLogo.classList.add('shrink');
+  } else {
+    navLogo.classList.remove('shrink');
+  }
+});
+
+// FAQ accordion
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  item.classList.toggle('active');
+}
+</script>
+
+</body>
+</html>
