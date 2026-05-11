@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+/* ── Design Tokens (Nail Salon Palette) ── */
+:root {
+  --color-canvas: #fafaf7;
+  --color-ink: #1a1a1a;
+  --color-ink-muted: #3d3d3d;
+  --color-rose: #d4a5a5;
+  --color-rose-dark: #b88686;
+  --color-surface: #f5f4f0;
+  --color-surface-alt: #f0ede8;
+  --color-muted: #6b6b6b;
+  --color-border: #d4a5a5;
+  --color-success: #4a7c59;
+  --color-warning: #c4953a;
+  --color-error: #c44a4a;
+
+  --font-heading: "Playfair Display", Georgia, serif;
+  --font-body: Inter, system-ui, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --spacing-section: 6rem;
+  --spacing-section-mobile: 4rem;
+}
+
+/* ── Base Styles ── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: var(--color-rose);
+  color: var(--color-canvas);
+}
+
+/* ── Focus Ring ── */
+*:focus-visible {
+  outline: 2px solid var(--color-rose);
+  outline-offset: 2px;
+}
+
+/* ── Smooth Scrolling (reduced motion) ── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
